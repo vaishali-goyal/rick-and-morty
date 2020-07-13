@@ -1,0 +1,117 @@
+.Species-wrapper {
+    padding: 15px;
+}
+.species-tiles {
+    border-radius: 4px;
+    color: #ffffff;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.species-tiles ul, .species-tiles li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.species-tiles li:last-child {
+    border: none;
+}
+
+.species-image-wrapper, .species-image-wrapper img{
+    width: 100%;
+    position: relative;
+}
+
+.species-details {
+    position: absolute;
+    bottom: 0;
+    background: #000;
+    opacity: 0.8;
+    width: 100%;
+    padding: 5px 10px;
+}
+
+.species-list-wrapper {
+    background: #333333;
+    padding: 20px 10px;
+}
+
+.species-list-wrapper li {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #ffffff;
+}
+.species-list-wrapper li .align-right {
+    text-align: right;
+    padding-left: 10px;
+    color: #ff9900;
+}
+.filters-wrapper, .top-filters-wrapper {
+    padding: 15px;
+}
+
+.filters-wrapper .filter-cat {
+    padding: 15px 0 15px 15px;
+    border: 1px solid #000000;
+    margin: 20px 0;
+}
+
+.form-inline input, .form-inline button {
+    border-radius: unset;
+}
+
+.sorting-filter {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sorting-filter .form-select {
+    min-width: 200px;
+    height: 35px;
+    float: right;
+}
+
+.selected-filters ul, .selected-filters li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.selected-filters li {
+    display: inline-block;
+    width: auto;
+    padding: 5px 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background: #cccccc;
+    border-radius: 4px;
+}
+
+@media all and (max-width:767px) {
+    .sorting-filter{
+        display: block;
+    }
+    .sorting-filter .form-select {
+        width: 100%;
+    }
+    .Species-wrapper {
+        padding: 10px;
+    }
+    .Species-wrapper .row > div:nth-child(2n+1) {
+        padding-right: 5px;
+    }
+    .Species-wrapper .row > div:nth-child(2n) {
+        padding-left: 5px;
+    }
+}
+
+@media all and (max-width:991px) {
+    .Species-wrapper {
+        font-size: 0.8rem;
+    }
+    .Species-wrapper h3 {
+        font-size: 1rem;
+    }
+}
