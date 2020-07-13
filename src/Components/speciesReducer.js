@@ -15,7 +15,7 @@ const initialState = {
     sortedItems: [],
     sortType: "",
     filteredItem: [],
-    value: ''
+    search: ''
 };
   
 export default function speciesReducer(
@@ -46,12 +46,18 @@ export default function speciesReducer(
         };
 
       case SORT_SPECIES: {
+        let sortedItems = [];
+        if (action.payload.sortType === "asc") {
+          sortedItems = [...state.items].sort((a, b) => a.id - b.id);
+        } else if ((action.value = "des")) {
+          sortedItems = [...state.items].sort((a, b) => b.id - a.id);
+        }
         return {
           ...state,
           loading: false,
-          items: action.payload.species,
+          items: sortedItems,
           sortType: action.payload.sortType
-        }; 
+        };
       }
 
       case FILTER_SPECIES: {
@@ -59,20 +65,22 @@ export default function speciesReducer(
         return {
           ...state,
           loading: false,
-          filteredItem : action.payload.items,
+          items : action.payload.items,
           filter: action.payload.filter 
         };
       }
 
       case SEARCH_SPECIES: {
-        // const { value } = action;
-        // const filteredItem = state.items.filter((val) => val['name'].indexOf(value));
-        // console.log(filteredItem);
+        //const { value } = action;
+        let filteredItem =[];
+        console.log("searcg");
+        filteredItem = state.items.filter((val) => val['name'].indexOf(action.payload.search));
+        console.log(filteredItem);
         return {
           ...state,
           loading: false,
-          value: action.payload,
-          searchedItem: action.payload.species
+          search: action.payload.search,
+          items: filteredItem
         };
       } 
   

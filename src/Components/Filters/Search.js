@@ -1,38 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { searchSpecies } from '../speciesActions'
 
-class SearchComponent extends React.Component  {
+const SearchComponent = (props) => {
 
-  onChange = e => {
-    this.props.searchSpecies(e.target.value);
-  }
+  // onChange = e => {
+  //   this.props.search = e.target.value ;
+  // }
 
-  onSubmit = e => {
-    e.preventDefault();
-    console.log(this.props);
-  }
+  // onSubmit = e => {
+  //   e.preventDefault();
+  //   this.props.searchSpecies(this.props.items, this.props.search);
+  // }
 
-  render(){
-    //const { searchSpecies, value } = this.props;
-    return (
-      <form onSubmit={this.onSubmit}>
-        <div className="form-group">
-          <label>Search by Name</label>
-          <div className="row">
-            <div className="col-8">
-              <input type="text" name="searchInput"  className="form-control" 
-                onChange={this.onChange} />
-            </div>
-            <div className="col-4 pl-0">
-              <input type="submit" className="btn btn-primary" />
-            </div>
+const [search, setSearch] = useState('');
+const [searchedItems, setSearchedItems] = useState('');
+
+useEffect(() => {
+  setSearchedItems(
+    props.items.filter(item => {
+      return item.name.toLowerCase().includes( search.toLowerCase() );
+    })
+  )
+}, [search, props.items])
+    
+  return (
+    <form>
+      <div className="form-group">
+        <label>Search by Name</label>
+        <div className="row">
+          <div className="col-8">
+            <input type="text" name="searchInput" className="form-control" 
+              onChange={(e) => setSearch(e.target.value)} />
+          </div>
+          <div className="col-4 pl-0">
+            <input type="submit" className="btn btn-primary" />
           </div>
         </div>
-      </form>
-    )
-  }
+      </div>
+    </form>
+  )
 }
 
 // function mapStateToProps({filteredItem}) {
@@ -44,8 +52,8 @@ class SearchComponent extends React.Component  {
 // }
 
 const mapStateToProps = state => ({
-  value: state.species.value,
-  searchedItem: state.species
+  search: state.species.search,
+  items: state.species.items
 })
 
 export default connect(mapStateToProps, {searchSpecies})(SearchComponent);

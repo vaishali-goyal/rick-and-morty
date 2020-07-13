@@ -57,11 +57,6 @@ export const fetchSpeciesFailure = error => ({
 // });
 
 export const sortSpecies = (species, sortType) => (dispatch) => {
-    if(sortType === 'asc') {
-        species.sort((a,b) =>  (a.id > b.id ? 1 : -1))
-    } else {
-        species.sort((a,b) => (b.id > a.id ? 1 : -1));
-    }
     return dispatch({
         type: SORT_SPECIES,
         payload: {
@@ -75,12 +70,16 @@ export const filterSpecies = (species, filter, filterType) => ({
     type: FILTER_SPECIES,
     payload: { 
         filter: filter,
-        filterType: filterType,
-        items: filter === "" ? species: species.filter(a => a.filterType.indexOf(filter) >= 0) 
+        species: species
+        // filterType: filterType,
+        // items: filter === "" ? species: species.filter(a => a.filterType.indexOf(filter) >= 0) 
     }
 });
 
-export const searchSpecies = (value) => ({
+export const searchSpecies = (species, search) => (dispatch) => ({
     type: SEARCH_SPECIES,
-    payload: value,
+    payload: {
+        search,
+        species
+    }
 });
