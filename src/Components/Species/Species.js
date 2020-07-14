@@ -3,8 +3,8 @@ import SpeciesDetails from './SpeciesDetails';
 
 //import './species-style.css';
 
-const SpeciesTiles = props => {    
-    return(
+const SpeciesTiles = props => {
+    return (
         <div className="row">
             {
                 props.species.map((result, index) => (
@@ -19,10 +19,10 @@ const SpeciesTiles = props => {
                             </div>
                             <SpeciesDetails result={result} />
                         </div>
-                    </div> 
+                    </div>
                 ))
             }
-        </div>     
+        </div>
     );
 }
 

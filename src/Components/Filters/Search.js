@@ -1,45 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { searchSpecies } from '../speciesActions'
+import { get } from 'lodash';
+import { filterSpecies, fetchSpecies } from '../speciesActions'
 
 const SearchComponent = (props) => {
 
-  // onChange = e => {
-  //   this.props.search = e.target.value ;
-  // }
+  const onSubmit = e => {
+    const { fetchSpecies, setFilterData, items, filter } = props;
 
-  // onSubmit = e => {
-  //   e.preventDefault();
-  //   this.props.searchSpecies(this.props.items, this.props.search);
-  // }
+    let filteredItem = filter.filter((val) => val['name'].toLowerCase().includes(search.toLowerCase()));
 
-const [search, setSearch] = useState('');
-const [searchedItems, setSearchedItems] = useState('');
+    setFilterData(filteredItem, filter);
+  }
 
-useEffect(() => {
-  setSearchedItems(
-    props.items.filter(item => {
-      return item.name.toLowerCase().includes( search.toLowerCase() );
-    })
-  )
-}, [search, props.items])
-    
+
+
+  const [search, setSearch] = useState('');
+  const [searchedItems, setSearchedItems] = useState('');
+
+  useEffect(() => {
+    setSearchedItems(
+      props.items.filter(item => {
+        return item.name.toLowerCase().includes(search.toLowerCase());
+      })
+    )
+  }, [search, props.items])
+
   return (
-    <form>
-      <div className="form-group">
-        <label>Search by Name</label>
-        <div className="row">
-          <div className="col-8">
-            <input type="text" name="searchInput" className="form-control" 
-              onChange={(e) => setSearch(e.target.value)} />
-          </div>
-          <div className="col-4 pl-0">
-            <input type="submit" className="btn btn-primary" />
-          </div>
+    <div className="form-group">
+      <label>Search by Name</label>
+      <div className="row">
+        <div className="col-8">
+          <input type="text" name="searchInput" className="form-control"
+            onChange={(e) => setSearch(e.target.value)} />
+        </div>
+        <div className="col-4 pl-0">
+          <input type="submit" className="btn btn-primary" onClick={(e) => onSubmit()} />
         </div>
       </div>
-    </form>
+    </div>
   )
 }
 
@@ -53,7 +53,15 @@ useEffect(() => {
 
 const mapStateToProps = state => ({
   search: state.species.search,
-  items: state.species.items
+  items: state.species.items,
+  filter: state.species.filter
 })
 
-export default connect(mapStateToProps, {searchSpecies})(SearchComponent);
+
+export const mapDispatchToProps = dispatch => ({
+  fetchSpecies: () => dispatch(fetchSpecies()),
+  setFilterData: (payload, items) =>
+    dispatch(filterSpecies(payload, items))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchComponent);

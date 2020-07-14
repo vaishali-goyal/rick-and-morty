@@ -10,13 +10,13 @@ export function fetchSpecies() {
     return dispatch => {
         dispatch(fetchSpeciesBegin());
         return getSpecies()
-        .then(json => {
-            dispatch(fetchSpeciesSuccess(json.results));
-            return json.species;
-        })
-        .catch(error =>
-            dispatch(fetchSpeciesFailure(error))
-        );
+            .then(json => {
+                dispatch(fetchSpeciesSuccess(json.results));
+                return json.species;
+            })
+            .catch(error =>
+                dispatch(fetchSpeciesFailure(error))
+            );
     };
 }
 
@@ -66,9 +66,9 @@ export const sortSpecies = (species, sortType) => (dispatch) => {
     })
 }
 
-export const filterSpecies = (species, filter, filterType) => ({
+export const filterSpecies = (filter, species) => ({
     type: FILTER_SPECIES,
-    payload: { 
+    payload: {
         filter: filter,
         species: species
         // filterType: filterType,
